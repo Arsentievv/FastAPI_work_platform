@@ -75,7 +75,7 @@ class Experience(Base):
     date_of_start: Mapped[datetime]
     date_of_finish: Mapped[datetime]
     position: Mapped[str]
-    description: Mapped[str]
+    description: Mapped[str | None]
     resume_id: Mapped[int] = mapped_column(
         ForeignKey("resumes.id", ondelete="CASCADE")
     )

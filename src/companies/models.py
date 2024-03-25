@@ -10,7 +10,7 @@ class Company(Base):
 
     id: Mapped[intpk]
     title: Mapped[str]
-    information: Mapped[str]
+    information: Mapped[str | None]
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
@@ -26,6 +26,7 @@ class Vacancy(Base):
     title: Mapped[str]
     compensation: Mapped[float]
     work_load: Mapped[Workload]
+    description: Mapped[str | None]
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
     company_id: Mapped[int] = mapped_column(
