@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.applicants.models import Worker, Resume
-from src.applicants.schemas import worker_schemas
+from applicants.models import Worker, Resume
+from applicants.schemas import worker_schemas
 
 
 class WorkerCRUD:
@@ -18,7 +18,7 @@ class WorkerCRUD:
         return worker_db
 
     @staticmethod
-    async def get_worker_by_id(db: AsyncSession, worker_id: str):
+    async def get_worker_by_id(db: AsyncSession, worker_id: int):
         result = await db.execute(select(Worker).filter(Worker.id == worker_id))
         return result.scalar_one_or_none()
 

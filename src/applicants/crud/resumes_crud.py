@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.applicants.models import Resume
-from src.applicants.schemas import resume_schemas
+from applicants.models import Resume
+from applicants.schemas import resume_schemas
 
 
 class ResumesCRUD:
