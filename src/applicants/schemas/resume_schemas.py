@@ -15,6 +15,8 @@ class ResumeBase(BaseModel):
         description="Desired compensation per month"
     )
     workload: Workload
+    educations: list["EducationGet"]
+    experience: list["ExperienceGet"]
 
 
 class ResumeCreate(ResumeBase):
@@ -28,5 +30,3 @@ class ResumeGet(ResumeBase):
     id: int
     created_at: datetime
     updated_at: datetime
-    educations: list["EducationGet"]
-    experience: list["ExperienceGet"]
