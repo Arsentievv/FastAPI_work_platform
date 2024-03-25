@@ -1,8 +1,6 @@
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from utils.fields import intpk, updated_at, created_at
-from applicants.models import Resume, Worker
-from companies.models import Vacancy
 from database import Base
 
 
