@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 class Worker(Base):
-    __tablename__ = "workes"
+    __tablename__ = "workers"
 
     id: Mapped[intpk]
     first_name: Mapped[str]
