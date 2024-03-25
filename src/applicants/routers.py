@@ -20,7 +20,7 @@ async def create_applicant(
         db: AsyncSession = Depends(get_session)
 ):
     worker = WorkerCRUD.create_worker(db=db, worker=applicant)
-    return worker
+    return await worker
 
 
 @applicants_router.get(
@@ -34,7 +34,7 @@ async def get_worker_by_id(
         db: AsyncSession = Depends(get_session)
 ):
     worker = WorkerCRUD.get_worker_by_id(db=db, worker_id=worker_id)
-    return worker
+    return await worker
 
 
 @applicants_router.get(

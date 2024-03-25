@@ -15,7 +15,7 @@ class Company(Base):
     updated_at: Mapped[updated_at]
 
     vacancies: Mapped[list["Vacancy"]] = relationship(
-        back_populates="companies"
+        back_populates="company"
     )
 
 

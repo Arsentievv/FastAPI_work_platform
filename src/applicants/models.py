@@ -3,7 +3,9 @@ from sqlalchemy import ForeignKey
 from database import Base
 from utils.fields import intpk, created_at, updated_at
 from utils.enums import Workload, Grade
-from datetime import datetime
+from datetime import date, datetime
+from replies.models import Rply
+from companies.models import Vacancy
 
 
 class Worker(Base):
@@ -12,7 +14,7 @@ class Worker(Base):
     id: Mapped[intpk]
     first_name: Mapped[str]
     last_name: Mapped[str]
-    date_of_birth: Mapped[datetime]
+    date_of_birth: Mapped[date]
     created_at: Mapped[created_at]
     updated_at: Mapped[updated_at]
 
@@ -34,18 +36,18 @@ class Resume(Base):
         ForeignKey("workers.id", ondelete="CASCADE")
     )
 
-    worker: Mapped["Worker"] = relationship(
+    workers: Mapped["Worker"] = relationship(
         back_populates="resumes"
     )
     educations: Mapped[list["Education"]] = relationship(
-        back_populates="resumes"
+        back_populates="resume"
     )
-    experience: Mapped[list["Experience"]] = relationship(
-        back_populates="resumes"
+    expiriences: Mapped[list["Experience"]] = relationship(
+        back_populates="resume"
     )
     vacancies_replied: Mapped[list["Vacancy"]] = relationship(
         back_populates="resumes_replied",
-        secondary="replies"
+        secondary=Rply.__table__
     )
 
 

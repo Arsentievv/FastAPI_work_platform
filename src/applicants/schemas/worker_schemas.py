@@ -28,4 +28,4 @@ class WorkerGet(WorkerBase):
 
 
 class WorkerGetWithResumes(WorkerGet):
-    resumes: list[ResumeGet]
+    resumes: list["ResumeGet"]
