@@ -3,7 +3,6 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 from applicants.models import Resume, Education, Experience
 from applicants.schemas import resume_schemas, education_schemas, experience_schemas
-from applicants.schemas.education_schemas import EducationGet
 
 
 class ResumesCRUD:

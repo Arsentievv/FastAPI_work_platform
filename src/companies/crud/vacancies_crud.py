@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from src.companies.models import Vacancy
-from src.companies.schemas import vacancy_schemas
+from companies.models import Vacancy
+from companies.schemas import vacancy_schemas
 
 
 class VacanciesCRUD:
@@ -12,7 +12,7 @@ class VacanciesCRUD:
             title=vacancy.title,
             description=vacancy.description,
             compensation=vacancy.compensation,
-            workload=vacancy.work_load,
+            work_load=vacancy.work_load,
             company_id=vacancy.company_id
         )
         db.add(vacancy_db)

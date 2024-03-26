@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.companies.schemas import company_schemas
-from src.companies.models import Company
+from companies.schemas import company_schemas
+from companies.models import Company
 from sqlalchemy import select
 
 
@@ -23,8 +23,8 @@ class CompanyCRUD:
 
     @staticmethod
     async def get_company_by_title(db: AsyncSession, company_title: str):
-        result = await db.execute(select(Company).filter(Company.title == company_title))
-        return result.scalar_one_or_none()
+        result = await db.execute(select(Company).filter(Company.title.contains(company_title)))
+        return result.scalars().all()
 
     @staticmethod
     async def get_company_vacancies(db: AsyncSession, company_id: int):
