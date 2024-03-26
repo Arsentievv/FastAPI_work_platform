@@ -90,7 +90,7 @@ async def get_resumes_by_title(resume_title: str, db: AsyncSession = Depends(get
 
 @applicants_router.get(
     "/{worker_id}/resumes/all",
-    response_model=list[resume_schemas.ResumeGet],
+    response_model=list[resume_schemas.ResumeWithConnections],
     description="Get all applicant's resumes",
     status_code=200
 )
@@ -99,30 +99,4 @@ async def get_all_workers_resumes(worker_id: int, db: AsyncSession = Depends(get
     return await resumes
 
 
-@applicants_router.post(
-    "/education/add",
-    response_model=education_schemas.EducationGet,
-    description="Create resumes education information",
-    status_code=201
-)
-async def create_education_for_resume(
-        education: education_schemas.EducationCreate,
-        db: AsyncSession = Depends(get_session)
-):
-    education = ResumesCRUD.create_education(education=education, db=db)
-    return await education
-
-
-@applicants_router.post(
-    "/experience/add",
-    response_model=experience_schemas.ExperienceGet,
-    description="Create resumes experience information",
-    status_code=201
-)
-async def create_experience_for_resume(
-        experience: experience_schemas.ExperienceCreate,
-        db: AsyncSession = Depends(get_session)
-):
-    education = ResumesCRUD.create_experience(experience=experience, db=db)
-    return await education
 

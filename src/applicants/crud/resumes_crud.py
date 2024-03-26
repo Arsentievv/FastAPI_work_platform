@@ -91,6 +91,11 @@ class ResumesCRUD:
 
     @staticmethod
     async def get_all_workers_resume(db: AsyncSession, worker_id: int):
-        result = await db.execute(select(Resume).filter(Resume.worker_id == worker_id))
+        result = await db.execute(
+            select(Resume)
+            .options(joinedload(Resume.experiences))
+            .options(joinedload(Resume.educations))
+            .filter(Resume.worker_id == worker_id)
+        )
         if result:
-            return result.scalars().all()
+            return result.unique().scalars().all()
