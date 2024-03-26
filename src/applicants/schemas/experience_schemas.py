@@ -23,10 +23,11 @@ class ExperienceBase(BaseModel):
 
 
 class ExperienceCreate(ExperienceBase):
-    resume_id: int = Field(
-        gt=0,
-        description="Connected resume ID"
-    )
+    # resume_id: int = Field(
+    #     gt=0,
+    #     description="Connected resume ID"
+    # )
+    pass
 
 
 class ExperienceGet(ExperienceBase):

@@ -25,12 +25,13 @@ class EducationBase(BaseModel):
 
 
 class EducationCreate(EducationBase):
-    resume_id: int = Field(
-        gt=0,
-        description="Connected resume ID"
-    )
+    # resume_id: int = Field(
+    #     gt=0,
+    #     description="Connected resume ID"
+    # )
+    pass
     
 
 class EducationGet(EducationBase):
-    pass
+    id: int
 

@@ -3,6 +3,7 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.ext.asyncio import AsyncSession
 from applicants.models import Resume, Education, Experience
 from applicants.schemas import resume_schemas, education_schemas, experience_schemas
+from applicants.schemas.education_schemas import EducationGet
 
 
 class ResumesCRUD:
@@ -44,6 +45,31 @@ class ResumesCRUD:
             worker_id=resume.worker_id
         )
         db.add(resume_db)
+        await db.commit()
+        education_list = []
+        experiences_list = []
+        for education in resume.educations:
+            ed = Education(
+                organization_name=education.organization_name,
+                speciality=education.speciality,
+                grade=education.grade,
+                date_of_start=education.date_of_start,
+                date_of_finish=education.date_of_finish,
+                resume_id=resume_db.id
+            )
+            education_list.append(ed)
+            db.add(ed)
+        for experience in resume.experiences:
+            ex = Experience(
+                company_title=experience.company_title,
+                date_of_start=experience.date_of_start,
+                date_of_finish=experience.date_of_finish,
+                position=experience.position,
+                description=experience.description,
+                resume_id=resume_db.id
+            )
+            db.add(ex)
+            experiences_list.append(ex)
         await db.commit()
         return resume_db
 

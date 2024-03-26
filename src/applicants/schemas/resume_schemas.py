@@ -1,8 +1,8 @@
 from pydantic import BaseModel, Field
 from utils.enums import Workload
 from datetime import datetime
-from applicants.schemas.education_schemas import EducationGet
-from applicants.schemas.experience_schemas import ExperienceGet
+from applicants.schemas.education_schemas import EducationGet, EducationCreate
+from applicants.schemas.experience_schemas import ExperienceGet, ExperienceCreate
 
 
 class ResumeBase(BaseModel):
@@ -22,8 +22,9 @@ class ResumeBase(BaseModel):
 
 
 class ResumeCreate(ResumeBase):
-    educations: list["EducationGet"] | None
-    experiences: list["ExperienceGet"] | None
+    educations: list["EducationCreate"] | None
+    experiences: list["ExperienceCreate"] | None
+    pass
 
 
 class ResumeGet(ResumeBase):
