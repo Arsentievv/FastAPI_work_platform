@@ -39,13 +39,14 @@ class Resume(Base):
     workers: Mapped["Worker"] = relationship(
         back_populates="resumes"
     )
-    educations: Mapped[list["Education"]] = relationship(
+    educations: Mapped[list["Education"] | None] = relationship(
+
         back_populates="resume"
     )
-    expiriences: Mapped[list["Experience"]] = relationship(
+    experiences: Mapped[list["Experience"] | None] = relationship(
         back_populates="resume"
     )
-    vacancies_replied: Mapped[list["Vacancy"]] = relationship(
+    vacancies_replied: Mapped[list["Vacancy"] | None] = relationship(
         back_populates="resumes_replied",
         secondary=Rply.__table__
     )
@@ -70,7 +71,7 @@ class Education(Base):
 
 
 class Experience(Base):
-    __tablename__ = "expiriences"
+    __tablename__ = "experiences"
 
     id: Mapped[intpk]
     company_title: Mapped[str]
@@ -83,5 +84,5 @@ class Experience(Base):
     )
 
     resume: Mapped["Resume"] = relationship(
-        back_populates="expiriences"
+        back_populates="experiences"
     )

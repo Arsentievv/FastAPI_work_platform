@@ -32,5 +32,5 @@ class EducationCreate(EducationBase):
     
 
 class EducationGet(EducationBase):
-    id: int
+    pass
 

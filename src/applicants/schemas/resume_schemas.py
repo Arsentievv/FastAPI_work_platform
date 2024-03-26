@@ -15,18 +15,23 @@ class ResumeBase(BaseModel):
         description="Desired compensation per month"
     )
     workload: Workload
-    educations: list["EducationGet"]
-    experience: list["ExperienceGet"]
-
-
-class ResumeCreate(ResumeBase):
     worker_id: int = Field(
         gt=0,
         description="Connected worker's ID"
     )
 
 
+class ResumeCreate(ResumeBase):
+    educations: list["EducationGet"] | None
+    experiences: list["ExperienceGet"] | None
+
+
 class ResumeGet(ResumeBase):
     id: int
     created_at: datetime
     updated_at: datetime
+
+
+class ResumeWithConnections(ResumeGet):
+    educations: list["EducationGet"] | None
+    experiences: list["ExperienceGet"] | None
