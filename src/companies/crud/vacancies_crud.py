@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from companies.models import Vacancy
 from companies.schemas import vacancy_schemas
-
+from utils.enums import Workload
 
 class VacanciesCRUD:
 
@@ -25,6 +25,37 @@ class VacanciesCRUD:
         return result.scalar_one_or_none()
 
     @staticmethod
-    async def get_vacancy_by_name(db: AsyncSession, vacancy_title: str):
-        result = await db.execute(select(Vacancy).filter(Vacancy.title == vacancy_title))
-        return result.all()
+    async def get_vacancies_by_name(db: AsyncSession, vacancy_title: str):
+        result = await db.execute(select(Vacancy).filter(Vacancy.title.contains(vacancy_title)))
+        return result.scalars().all()
+
+    @staticmethod
+    async def get_vacancy_by_filters(
+            db: AsyncSession,
+            vacancy_title: str | None,
+            compensation: float | None,
+            workload: Workload
+    ):
+        if vacancy_title and compensation:
+            query = select(Vacancy).filter(
+                Vacancy.title.contains(vacancy_title),
+                Vacancy.compensation == compensation,
+                Vacancy.work_load == workload
+            )
+        elif vacancy_title and compensation is None:
+            query = select(Vacancy).filter(
+                Vacancy.title.contains(vacancy_title),
+                Vacancy.work_load == workload
+            )
+        elif vacancy_title is None and compensation:
+            query = select(Vacancy).filter(
+                Vacancy.compensation == compensation,
+                Vacancy.work_load == workload
+            )
+        else:
+            query = select(Vacancy).filter(
+                Vacancy.work_load == workload
+            )
+        result = await db.execute(query)
+        return result.scalars().all()
+
