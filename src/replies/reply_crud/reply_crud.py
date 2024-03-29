@@ -1,7 +1,10 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from src.replies.models import Rply
-from src.replies.reply_schemas import reply_schemas
+from sqlalchemy.orm import selectinload
+from replies.models import Rply
+from replies.reply_schemas import reply_schemas
+from applicants.models import Resume
+from companies.models import Vacancy
 
 
 class ReplyCRUD:
@@ -9,8 +12,8 @@ class ReplyCRUD:
     @staticmethod
     async def create_reply(db: AsyncSession, reply: reply_schemas.ReplyCreate):
         reply_db = Rply(
-            vacancy_id=reply.vacancy_id,
             resume_id=reply.resume_id,
+            vacancy_id=reply.vacancy_id,
             letter=reply.letter
         )
         db.add(reply_db)

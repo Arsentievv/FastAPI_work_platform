@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query, Body, Path
 from companies.schemas import company_schemas, vacancy_schemas
 from companies.crud.company_crud import CompanyCRUD
 from companies.crud.vacancies_crud import VacanciesCRUD
 from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_session
 from utils.enums import Workload
+
 
 company_router = APIRouter()
 vacancy_router = APIRouter()
@@ -112,15 +113,15 @@ async def get_vacancies_by_name(
 
 
 @vacancy_router.get(
-    "/vacancy/find",
+    "/find_vacancy",
     response_model=list[vacancy_schemas.VacancyGet],
     status_code=200,
     description="Get filtered vacancies"
 )
 async def get_filtered_vacancies(
-        vacancy_title: str | None,
-        compensation: float | None,
         workload: Workload,
+        vacancy_title: str | None = Query(None),
+        compensation: float | None = Query(None),
         db: AsyncSession = Depends(get_session)
 ):
     result = VacanciesCRUD.get_vacancy_by_filters(

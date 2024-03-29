@@ -7,7 +7,7 @@ from database import Base
 class Rply(Base):
     __tablename__ = "replies"
 
-    id: Mapped[intpk]
+    id: Mapped[int] = mapped_column(primary_key=True)
     resume_id: Mapped[int] = mapped_column(
         ForeignKey("resumes.id", ondelete="CASCADE"),
         primary_key=True

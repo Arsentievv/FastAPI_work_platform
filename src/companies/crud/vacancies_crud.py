@@ -1,8 +1,9 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, and_
 from companies.models import Vacancy
 from companies.schemas import vacancy_schemas
 from utils.enums import Workload
+
 
 class VacanciesCRUD:
 
@@ -37,12 +38,12 @@ class VacanciesCRUD:
             workload: Workload
     ):
         if vacancy_title and compensation:
-            query = select(Vacancy).filter(
+            query = select(Vacancy).filter(and_(
                 Vacancy.title.contains(vacancy_title),
                 Vacancy.compensation == compensation,
                 Vacancy.work_load == workload
-            )
-        elif vacancy_title and compensation is None:
+            ))
+        elif vacancy_title is not None and compensation is None:
             query = select(Vacancy).filter(
                 Vacancy.title.contains(vacancy_title),
                 Vacancy.work_load == workload

@@ -46,9 +46,9 @@ class Resume(Base):
     experiences: Mapped[list["Experience"] | None] = relationship(
         back_populates="resume"
     )
-    vacancies_replied: Mapped[list["Vacancy"] | None] = relationship(
+    vacancies_replied: Mapped[list["Vacancy"]] = relationship(
         back_populates="resumes_replied",
-        secondary=Rply.__table__
+        secondary="replies"
     )
 
 
